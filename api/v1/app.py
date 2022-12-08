@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """
+Flask app inizialization
 """
 from flask import Flask, jsonify
 from models import storage
