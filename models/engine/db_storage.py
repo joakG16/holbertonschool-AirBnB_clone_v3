@@ -77,8 +77,8 @@ class DBStorage:
     
     def get(self, cls, id):
         ''' retrieve an object from storage '''
-        for obj in self.all(cls):
-            if obj['id'] == id:
+        for obj in self.__sesion.query(cls).all():
+            if obj.id == id:
                 return obj
         return None
     
