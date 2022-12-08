@@ -79,6 +79,7 @@ class FileStorage:
         return None
     
     def count(self, cls=None):
+        ''' count number of current objects method '''
         if cls:
             return len(self.all(cls))
         else:
