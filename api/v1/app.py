@@ -12,6 +12,11 @@ app.register_blueprint(app_views)
 def close_func(exit):
     storage.close()
 
+@app.errorhandler(404)
+def error_404(error):
+    ''' return error status code and message in JSON format '''
+    return jsonify({"error": "Not found"}), 404
+
 if __name__ == "__main__":
     if getenv('HBNB_API_HOST'):
         host = getenv('HBNB_API_HOST')
