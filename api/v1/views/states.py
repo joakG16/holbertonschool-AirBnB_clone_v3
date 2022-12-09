@@ -7,13 +7,15 @@ from models import storage
 from models.state import State
 from api.v1.views import app_views
 
+
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 def get_all_states():
     ''' retrieve a list of of all State object '''
-    states_list = [stat.to_dict() for stat in storage.all(State)]
+    states_list = [stat.to_dict() for stat in storage.all(State).values()]
     # retrieve the state objects using all method and then values(), and
     # convert it into a dictionary each for JSON representation
     return jsonify(states_list)
+
 
 @app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def get_state_by_id(state_id):
@@ -23,7 +25,9 @@ def get_state_by_id(state_id):
         abort(404)  # returns 404 error
     return jsonify(obj.to_dict())
 
-@app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
+
+@app_views.route('/states/<state_id>', methods=['DELETE'],
+                 strict_slashes=False)
 def delete_state_by_index(state_id):
     ''' delete a state obj based on it's id '''
     obj = storage.get(State, state_id)
@@ -32,6 +36,7 @@ def delete_state_by_index(state_id):
     storage.delete(obj)
     storage.save()  # changes need to be saved
     return jsonify({}), 200
+
 
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def create_state():
@@ -47,6 +52,7 @@ def create_state():
     storage.new(new_state)
     storage.save()
     return jsonify(new_state.to_dict()), 201
+
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def update_state(state_id):
