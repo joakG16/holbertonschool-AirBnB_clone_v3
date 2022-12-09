@@ -40,9 +40,9 @@ def delete_state_by_index(state_id):
 
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def create_state():
-    state_data = request.get_json()  # None in case data passed is
-    # not "jsonifible"
+    state_data = request.get_json()
     # Transform the HTTP body request to a dictionary
+    # None is returned in case data passed is not "jsonifible"
     if state_data is None:
         abort(400, "Not a JSON")
     if 'name' not in state_data:
