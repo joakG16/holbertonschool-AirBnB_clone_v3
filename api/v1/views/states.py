@@ -10,7 +10,7 @@ from api.v1.views import app_views
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 def get_all_states():
     ''' retrieve a list of of all State object '''
-    states_list = [stat.to_dict() for stat in storage.all(State).values()]
+    states_list = [stat.to_dict() for stat in storage.all(State)]
     # retrieve the state objects using all method and then values(), and
     # convert it into a dictionary each for JSON representation
     return jsonify(states_list)
