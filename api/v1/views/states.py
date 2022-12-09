@@ -10,19 +10,18 @@ from api.v1.views import app_views
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 def get_all_states():
     ''' retrieve a list of of all State object '''
-    states_dict = [st.to_dict() for st in storage.all(State).values()]
+    states_list = [stat.to_dict() for stat in storage.all(State).values()]
     # retrieve the state objects using all method and then values(), and
     # convert it into a dictionary each for JSON representation
-    return jsonify(states_dict)
+    return jsonify(states_list)
 
 @app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def get_state_by_id(state_id):
     ''' retrieve a State obj depending on its id '''
     obj = storage.get(State, state_id)
-    if obj:
-        return jsonify(obj.to_dict())
-    else:
+    if not obj:
         abort(404)  # returns 404 error
+    return jsonify(obj.to_dict())
 
 @app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
 def delete_state_by_index(state_id):
