@@ -45,7 +45,7 @@ def create_state():
     # Transform the HTTP body request to a dictionary
     if state_data is None:
         abort(400, "Not a JSON")
-    if state_data['name'] is None:
+    if 'name' not in state_data:
         abort(400, "Missing Name")
     new_state = State(**state_data)  # creating the new state object
     # with its unpacked data (in key-value pairs) as kwargs
