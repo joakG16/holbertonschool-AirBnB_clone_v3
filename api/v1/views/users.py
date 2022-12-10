@@ -63,7 +63,7 @@ def update_user_obj_by_id(user_id):
         abort(404)
     updated_user_data_dict = request.get_json()
     if updated_user_data_dict is None:
-        return(400, "Not a JSON")
+        abort(400, "Not a JSON")
     for key, value in updated_user_data_dict.items():
         if key == 'id' or key == 'email' or key == 'created_at'\
              or key == 'updated_at':
