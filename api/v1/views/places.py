@@ -37,7 +37,7 @@ def get_place_by_id(place_id):
     return jsonify(place.to_dict())
 
 
-@app_views.route('/places/<place_id>', methods=['GET'],
+@app_views.route('/places/<place_id>', methods=['DELETE'],
                  strict_slashes=False)
 def delete_place_obj_by_id(place_id):
     ''' Function to delete a Place object from storage
