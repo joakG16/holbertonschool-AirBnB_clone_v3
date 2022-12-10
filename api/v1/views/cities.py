@@ -60,3 +60,24 @@ def post_create_city(state_id):
     storage.new(new_city)
     storage.save()
     return jsonify(new_city.to_dict()), 201
+
+
+@app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
+def update_city_by_id(city_id):
+    ''' update a City instance's atributes given through JSON format
+    (HTTP body request)
+    '''
+    city_to_update = storage.get(City, city_id)
+    if not city_to_update:
+        abort(404)
+    updated_city_data_dict = request.get_json()
+    if updated_city_data_dict is None:
+        abort(400, "Not a JSON")
+    for key, value in updated_city_data_dict.items():
+        if key == 'id' or key == 'created_at' or key == 'updated_at':
+            pass
+        else:
+            setattr(city_to_update, key, value)
+    storage.save()
+    return jsonify(city_to_update.to_dict()), 200
+
