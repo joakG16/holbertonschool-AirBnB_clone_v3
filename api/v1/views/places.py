@@ -77,7 +77,7 @@ def post_create_place_object(city_id):
         abort(400, "Missing Name")
 
     place_data['city_id'] = city_id
-    new_place = Place(place_data)
+    new_place = Place(**place_data)
 
     storage.new(new_place)
     storage.save()
