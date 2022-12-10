@@ -35,7 +35,7 @@ def delete_state_by_index(state_id):
         abort(404)  # returns 404 error
     storage.delete(obj)
     storage.save()  # changes need to be saved
-    return jsonify({}), 200
+    return jsonify({}), 200  # HTTP 200 OK success status response code
 
 
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
@@ -52,6 +52,8 @@ def create_state():
     storage.new(new_state)
     storage.save()
     return jsonify(new_state.to_dict()), 201
+    # 201: Created success status response code indicates that the request
+    # has succeeded and has led to the creation of a resource
 
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
