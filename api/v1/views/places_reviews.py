@@ -70,14 +70,35 @@ def post_create_review_object(place_id):
     user = storage.get(User, review_data_dict['user_id'])
     if user is None:
         abort(404)
-    
+
     if 'text' not in review_data_dict:
         abort(400, "Missing Text")
-    
+
     review_data_dict['place_id'] = place_id
     new_review = Review(**review_data_dict)
 
     storage.new(new_review)
     storage.save()
     return jsonify(new_review.to_dict()), 201
-    
+
+
+@app_views.route('/reviews/<review_id>', methods=['PUT'],
+                 strict_slashes=False)
+def put_update_review_obj(review_id):
+    ''' update Review object's atributes given through JSON format
+    (HTTP body request)
+    '''
+    review_to_update = storage.get(Review, review_id)
+    if review_to_update is None:
+        abort(404)
+    updated_review_data_dict = request.get_json()
+    if updated_review_data_dict is None:
+        abort(400, "Not a JSON")
+    for key, value in updated_review_data_dict.items():
+        if key == 'id' or key == 'user_id' or key == 'place_id'\
+             or key == 'created_at' or key == 'updated_at':
+            pass
+        else:
+            setattr(review_to_update, key, value)
+    storage.save()
+    return jsonify(review_to_update.to_dict()), 200
