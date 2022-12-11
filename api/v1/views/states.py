@@ -7,7 +7,6 @@ from models.state import State
 from api.v1.views import app_views
 
 
-
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 def get_all_states():
     ''' retrieve a list of of all State object '''

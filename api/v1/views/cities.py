@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 ''' a new view for City objects that handles all default RESTFul API
 actions '''
-
 from flask import jsonify, abort, request
 from models import storage
 from models.city import City
 from models.state import State
 from api.v1.views import app_views
+
 
 @app_views.route('/states/<state_id>/cities', methods=['GET'],
                  strict_slashes=False)
@@ -80,4 +80,3 @@ def update_city_by_id(city_id):
             setattr(city_to_update, key, value)
     storage.save()
     return jsonify(city_to_update.to_dict()), 200
-
