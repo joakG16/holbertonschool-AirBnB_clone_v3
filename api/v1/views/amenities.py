@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 ''' a new view for Amenity objects that handles all default RESTFul API
 actions '''
-
 from flask import jsonify, abort, request
 from models import storage
 from models.amenity import Amenity
@@ -10,7 +9,7 @@ from api.v1.views import app_views
 
 @app_views.route('/amenities', methods=['GET'], strict_slashes=False)
 def get_all_amenities():
-    ''' function that retrieves and returns a list Amenity objects
+    ''' Function that retrieves and returns a list Amenity objects
     currently in Storage, given a GET request
     '''
     amenities_list = [amen.to_dict() for amen in storage.all(Amenity).values()]
@@ -20,7 +19,7 @@ def get_all_amenities():
 @app_views.route('/amenities/<amenity_id>', methods=['GET'],
                  strict_slashes=False)
 def get_amenity_by_id(amenity_id):
-    ''' function to retrieve and return an Amenity object searched by its id'''
+    ''' Function to retrieve and return an Amenity object searched by its id'''
     amenity_obj = storage.get(Amenity, amenity_id)
     if not amenity_obj:
         abort(404)
@@ -42,7 +41,7 @@ def delete_amenity_by_id(amenity_id):
 @app_views.route('/amenities', methods=['POST'],
                  strict_slashes=False)
 def post_create_amenity():
-    ''' create a new Amenity instance given the data as dict. through
+    ''' Create a new Amenity instance given the data as dict. through
     a HTTP body request
     '''
     new_amenity_data_dict = request.get_json()
@@ -55,10 +54,11 @@ def post_create_amenity():
     storage.save()
     return jsonify(new_amenity.to_dict()), 201
 
+
 @app_views.route('/amenities/<amenity_id>', methods=['PUT'],
                  strict_slashes=False)
 def put_update_amenity_by_id(amenity_id):
-    ''' update a stored Amenity instance's attributes
+    ''' Update a stored Amenity instance's attributes
     given its id and data (dictionary passed through
     HTTP body request in JSON format)
     '''
@@ -75,4 +75,3 @@ def put_update_amenity_by_id(amenity_id):
             setattr(amenity_obj, key, value)
     storage.save()
     return jsonify(amenity_obj.to_dict()), 200
-
