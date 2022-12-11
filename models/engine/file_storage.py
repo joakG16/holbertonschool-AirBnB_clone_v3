@@ -70,7 +70,7 @@ class FileStorage:
         self.reload()
     
     def get(self, cls, id):
-        ''' a method to retrieve one object based on its id ''' 
+        ''' A method to retrieve one object based on its id ''' 
         for key, value in classes.items():
             ''' check class passed in class's dict and if the id provided
             is in current object storage's keys '''
@@ -79,7 +79,7 @@ class FileStorage:
         return None
     
     def count(self, cls=None):
-        ''' count number of current objects method '''
+        ''' Count number of current objects method '''
         if cls:
             return len(self.all(cls))
         else:

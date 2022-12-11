@@ -25,7 +25,7 @@ class State(BaseModel, Base):
     if models.storage_t != "db":
         @property
         def cities(self):
-            """getter for list of city instances related to the state
+            """getter for list of city instances RELATED to the state
             we are actually using the getter as an intermediary to
             avoid accessing the City data directly. """
             city_list = []
